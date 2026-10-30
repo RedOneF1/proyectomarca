@@ -2,65 +2,94 @@
 <html lang="es">
 
 <head>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3VLNKX956T"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-3VLNKX956T');
-    </script>
-
-    <!-- CONTENTSQUARE TRACKING TAG -->
-    <script type="text/javascript">
-        (function () {
-            var csa = document.createElement('script');
-            csa.type = 'text/javascript';
-            csa.async = true;
-            csa.src = '//t.contentsquare.net/uxa/38b5981933a8c.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(csa, s);
-        })();
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA — Indumentaria Urbana Técnica & Brandbook Digital Oficial</title>
+    <meta name="theme-color" content="#050505">
+    <title>NOVA — Indumentaria Urbana Técnica &amp; Brandbook Digital Oficial</title>
     <meta name="description" content="NOVA es una propuesta de indumentaria urbana técnica y plataforma de diseño editorial. Colecciones de edición limitada con patronaje anatómico y tejidos de alto rendimiento. Solicita tu acceso exclusivo.">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
 
     <!-- Open Graph / Meta de Campaña -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="NOVA — Indumentaria Urbana Técnica & Brandbook Oficial">
+    <meta property="og:title" content="NOVA — Indumentaria Urbana Técnica &amp; Brandbook Oficial">
     <meta property="og:description" content="Diseño arquitectónico de precisión, tejidos de alto rendimiento y producción limitada. Conoce la colección y solicita tu acceso privado.">
     <meta property="og:locale" content="es_CO">
 
-    <!-- Tipografías Oficiales: Montserrat & Space Grotesk -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Preload de Fuentes Críticas WOFF2 Autohospedadas -->
+    <link rel="preload" href="fonts/montserrat-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/space-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- Bootstrap 5.3 Estructural (Grid 12 Columnas) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Preload de Imagen Hero (LCP Desktop) -->
+    <link rel="preload" as="image" href="img/nova-hoodie-hero-800w.webp" type="image/webp" imagesrcset="img/nova-hoodie-hero-480w.webp 480w, img/nova-hoodie-hero-800w.webp 800w, img/nova-hoodie-hero-1200w.webp 1200w" imagesizes="(max-width: 768px) 480px, (max-width: 1200px) 400px, 360px" media="(min-width: 768px)">
 
-    <!-- Hoja de Estilos: Sistema Editorial Asimétrico & Alta Conversión -->
-    <link rel="stylesheet" href="css/estilos.css">
+    <!-- Critical CSS Above-the-Fold Inline -->
+    <style>
+    @font-face{font-family:'Montserrat';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/montserrat-latin-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;src:url('fonts/space-grotesk-latin-var.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    :root{--nova-black:#050505;--nova-black-soft:#111111;--nova-black-card:#181818;--nova-red:#E10600;--nova-red-bright:#FF1E1E;--nova-white:#FFFFFF;--nova-gray:#EDEDED;--nova-gray-dark:#8A8A8A;--border-light:rgba(255,255,255,0.12);--border-light-strong:rgba(255,255,255,0.22);--border-red:rgba(225,6,0,0.5);--font-display:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;--font-tech:'Space Grotesk',monospace;--t-fast:all 0.25s cubic-bezier(0.16,1,0.3,1)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px;background-color:var(--nova-black)}
+    body{background-color:var(--nova-black);color:var(--nova-white);font-family:var(--font-display);line-height:1.55;overflow-x:hidden;width:100%;-webkit-font-smoothing:antialiased}
+    #read-progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:left;background-color:var(--nova-red);z-index:10000;will-change:transform}
+    .editorial-nav{position:fixed;top:0;left:0;width:100%;padding:16px 4vw;display:flex;justify-content:space-between;align-items:center;background:rgba(5,5,5,0.95);border-bottom:1px solid var(--border-light);z-index:999}
+    .brand-mark{text-decoration:none;display:inline-flex;align-items:center;gap:12px}
+    .nova-logo-svg{display:inline-block;vertical-align:middle;color:var(--nova-white)}
+    .nova-logo-nav{height:18px;width:auto}
+    .nav-chapter-badge{background:var(--nova-black-card);color:var(--nova-gray);border:1px solid var(--border-light);padding:3px 10px;font-family:var(--font-tech);font-size:0.72rem;letter-spacing:1.5px;border-radius:2px}
+    .nav-action-group{display:flex;align-items:center;gap:16px}
+    .nav-contact-link{font-family:var(--font-tech);font-size:0.78rem;letter-spacing:1.5px;color:var(--nova-gray);text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:6px 12px}
+    .nav-contact-dot{width:7px;height:7px;background-color:#00E676;border-radius:50%;box-shadow:0 0 8px #00E676}
+    .nav-cta-btn{background:var(--nova-red);color:var(--nova-white);font-family:var(--font-tech);font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:8px 18px;border:1px solid var(--nova-red);display:inline-flex;align-items:center;gap:6px}
+    .hero-spread{background:radial-gradient(circle at 10% 20%,rgba(225,6,0,0.08) 0%,transparent 40%),var(--nova-black);padding-top:clamp(100px,12vw,150px);padding-bottom:clamp(75px,9vw,140px);border-bottom:1px solid var(--border-light);position:relative}
+    .corner-spec{position:absolute;font-family:var(--font-tech);font-size:0.72rem;letter-spacing:2px;color:var(--nova-gray-dark);z-index:5;pointer-events:none}
+    .corner-spec.top-right{top:90px;right:4vw}
+    .corner-spec.bottom-right{bottom:24px;right:4vw}
+    .hero-editorial-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(225,6,0,0.12);border:1px solid var(--border-red);padding:6px 14px;font-family:var(--font-tech);font-size:0.75rem;font-weight:700;letter-spacing:2px;color:var(--nova-red-bright);margin-bottom:1.5rem}
+    .nova-h1-hero{font-family:var(--font-display);font-size:clamp(2.75rem,6.8vw,6.2rem);font-weight:900;line-height:0.95;letter-spacing:-0.045em;color:var(--nova-white);text-transform:uppercase;margin-bottom:1rem}
+    .nova-lead{font-family:var(--font-display);font-size:clamp(1.05rem,1.35vw,1.3rem);font-weight:400;line-height:1.65;color:var(--nova-gray);margin-bottom:1.5rem}
+    .text-red{color:var(--nova-red-bright)!important}
+    .text-white{color:var(--nova-white)!important}
+    .text-gray-dark{color:var(--nova-gray-dark)!important}
+    .hero-spec-strip{display:flex;flex-wrap:wrap;gap:12px 24px;padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid var(--border-light)}
+    .hero-spec-item{font-family:var(--font-tech);font-size:0.75rem;letter-spacing:1.5px;color:var(--nova-gray-dark);display:inline-flex;align-items:center;gap:8px}
+    .hero-spec-item strong{color:var(--nova-white)}
+    .hero-form-dossier{position:relative;background:var(--nova-black-soft);border:1px solid var(--border-light-strong);padding:clamp(24px,3.5vw,36px);box-shadow:0 25px 60px rgba(0,0,0,0.75)}
+    .dossier-tag{font-family:var(--font-tech);font-size:0.7rem;font-weight:700;letter-spacing:2px;color:var(--nova-red-bright);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-light);padding-bottom:10px;margin-bottom:18px}
+    .dossier-title{font-family:var(--font-display);font-size:clamp(1.35rem,2vw,1.8rem);font-weight:900;color:var(--nova-white);letter-spacing:-0.02em;margin-bottom:8px;text-transform:uppercase}
+    .dossier-subtext{font-size:0.88rem;color:var(--nova-gray-dark);line-height:1.5;margin-bottom:22px}
+    .container-fluid{width:100%;padding-right:1.5rem;padding-left:1.5rem;margin-right:auto;margin-left:auto}
+    .row{display:flex;flex-wrap:wrap;margin-right:-0.75rem;margin-left:-0.75rem}
+    .row>*{flex-shrink:0;width:100%;max-width:100%;padding-right:0.75rem;padding-left:0.75rem}
+    .col-12{flex:0 0 auto;width:100%}
+    .col-6{flex:0 0 auto;width:50%}
+    @media(min-width:768px){.d-md-flex{display:flex!important}}
+    @media(min-width:992px){.col-lg-7{flex:0 0 auto;width:58.33333333%}.col-lg-5{flex:0 0 auto;width:41.66666667%}.px-lg-5{padding-right:3rem!important;padding-left:3rem!important}}
+    .d-none{display:none!important}
+    .align-items-center{align-items:center!important}
+    .align-items-stretch{align-items:stretch!important}
+    .g-3{margin-right:-0.5rem;margin-left:-0.5rem}.g-3>*{padding-right:0.5rem;padding-left:0.5rem}
+    .g-4{margin-right:-0.75rem;margin-left:-0.75rem}.g-4>*{padding-right:0.75rem;padding-left:0.75rem}
+    @media(min-width:1200px){.g-xl-5{margin-right:-1.5rem;margin-left:-1.5rem}.g-xl-5>*{padding-right:1.5rem;padding-left:1.5rem}}
+    .w-100{width:100%!important}
+    .h-100{height:100%!important}
+    .mb-3{margin-bottom:1rem!important}
+    .mb-4{margin-bottom:1.5rem!important}
+    .mt-4{margin-top:1.5rem!important}
+    .reveal-fade{opacity:0;transform:translateY(24px);transition:opacity 0.65s cubic-bezier(0.16,1,0.3,1),transform 0.65s cubic-bezier(0.16,1,0.3,1)}
+    .reveal-fade.active{opacity:1;transform:translateY(0)}
+    @media(max-width:991.98px){.corner-spec{display:none}.nav-contact-link{display:none}}
+    @media(max-width:575.98px){.editorial-nav{padding:12px 16px}.nav-chapter-badge{display:none}.hero-form-dossier{padding:20px 16px}}
+    </style>
 
-        <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KP2NL4DV');</script>
-    <!-- End Google Tag Manager -->
+    <!-- Carga Asíncrona No Bloqueante del Estilo Completo -->
+    <link rel="preload" href="css/estilos.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/estilos.min.css"></noscript>
 </head>
 
 <body>
-        <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KP2NL4DV"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    
 
     <!-- Línea superior de avance de lectura -->
     <div id="read-progress" aria-hidden="true"></div>
@@ -143,7 +172,11 @@
                                         <span>[ LÁMINA 01 // INDUMENTARIA ]</span>
                                         <span class="text-red">SPEC 2026</span>
                                     </div>
-                                    <img src="img/nova-hoodie-hero.jpg" alt="Buzo Hoodie Arquitectónico NOVA — Campaña Oficial" loading="eager">
+                                    <picture>
+                                        <source type="image/avif" srcset="img/nova-hoodie-hero-480w.avif 480w, img/nova-hoodie-hero-800w.avif 800w, img/nova-hoodie-hero-1200w.avif 1200w" sizes="(max-width: 768px) 480px, (max-width: 1200px) 400px, 360px">
+                                        <source type="image/webp" srcset="img/nova-hoodie-hero-480w.webp 480w, img/nova-hoodie-hero-800w.webp 800w, img/nova-hoodie-hero-1200w.webp 1200w" sizes="(max-width: 768px) 480px, (max-width: 1200px) 400px, 360px">
+                                        <img src="img/nova-hoodie-hero-800w.jpg" alt="Buzo Hoodie Arquitectónico NOVA — Campaña Oficial" width="1200" height="896" fetchpriority="high" decoding="async">
+                                    </picture>
                                     <div class="plate-footer-caption">
                                         <span>HOODIE ASIMÉTRICO 320 GSM</span>
                                         <span class="text-gray-dark">FIG. 01</span>
@@ -158,7 +191,11 @@
                                         <span>[ MANUAL OFICIAL // DIRECCIÓN ]</span>
                                         <span class="text-white">EDICIÓN 01</span>
                                     </div>
-                                    <img src="img/hero_brand_manual.jpg" alt="Manual de Identidad Visual NOVA" loading="eager">
+                                    <picture>
+                                        <source type="image/avif" srcset="img/hero_brand_manual-480w.avif 480w, img/hero_brand_manual-800w.avif 800w, img/hero_brand_manual-1200w.avif 1200w" sizes="(max-width: 768px) 480px, (max-width: 1200px) 400px, 360px">
+                                        <source type="image/webp" srcset="img/hero_brand_manual-480w.webp 480w, img/hero_brand_manual-800w.webp 800w, img/hero_brand_manual-1200w.webp 1200w" sizes="(max-width: 768px) 480px, (max-width: 1200px) 400px, 360px">
+                                        <img src="img/hero_brand_manual-800w.jpg" alt="Manual de Identidad Visual NOVA" width="1200" height="896" loading="lazy" decoding="async">
+                                    </picture>
                                     <div class="plate-footer-caption">
                                         <span>SISTEMA DE IDENTIDAD GLOBAL</span>
                                         <span class="text-gray-dark">FIG. 02</span>
@@ -182,11 +219,64 @@
                             </p>
 
  
-<!-- =====================================================
-         NUEVO FORMULARIO OFICIAL CONECTADO A HUBSPOT CRM
-         ===================================================== -->
-    <script src="https://js.hsforms.net/forms/embed/52169469.js" defer></script>
-    <div class="hs-form-frame" data-region="na1" data-form-id="8e299981-d8fb-454f-bc67-36579118f31e" data-portal-id="52169469"></div>
+<!-- Formulario Principal de Acceso (Validado & Conectado) -->
+                            <form id="hero-form" novalidate>
+                                <div class="form-field-group" id="group-nombre">
+                                    <label for="form-nombre" class="nova-label">
+                                        Nombre y Apellido <span class="req">*</span>
+                                    </label>
+                                    <input type="text" id="form-nombre" name="nombre" class="nova-input" placeholder="Ej. Mateo Restrepo" required autocomplete="name">
+                                    <div class="field-error-msg" id="error-nombre">Por favor ingresa tu nombre completo.</div>
+                                </div>
+
+                                <div class="form-field-group" id="group-email">
+                                    <label for="form-email" class="nova-label">
+                                        Correo Electrónico <span class="req">*</span>
+                                    </label>
+                                    <input type="email" id="form-email" name="email" class="nova-input" placeholder="tu@correo.com" required autocomplete="email">
+                                    <div class="field-error-msg" id="error-email">Ingresa un correo electrónico válido.</div>
+                                </div>
+
+                                <div class="form-field-group" id="group-telefono">
+                                    <label for="form-telefono" class="nova-label">
+                                        WhatsApp o Teléfono <span class="req">*</span>
+                                    </label>
+                                    <input type="tel" id="form-telefono" name="telefono" class="nova-input" placeholder="+57 300 000 0000" required autocomplete="tel">
+                                    <div class="field-error-msg" id="error-telefono">Ingresa un número telefónico de contacto.</div>
+                                </div>
+
+                                <div class="form-field-group" id="group-interes">
+                                    <label for="form-interes" class="nova-label">
+                                        Pieza de Mayor Interés
+                                    </label>
+                                    <select id="form-interes" name="interes" class="nova-select">
+                                        <option value="indumentaria">Colección Indumentaria Técnica (Chaquetas &amp; Hoodies)</option>
+                                        <option value="tote">Accesorios &amp; Tote Bag Editorial de Algodón</option>
+                                        <option value="completo">Catálogo Completo de la Edición 2026</option>
+                                        <option value="corporativo">Pedido Corporativo / Consultoría de Marca</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-check-editorial" id="group-consent">
+                                    <input type="checkbox" id="form-consent" name="consent" required checked>
+                                    <label for="form-consent">
+                                        Acepto la <a href="#politica-datos" class="text-white">política de tratamiento de datos</a> de NOVA para recibir el catálogo y atención personalizada.
+                                    </label>
+                                </div>
+                                <div class="field-error-msg mb-2" id="error-consent" style="display: none;">Debes aceptar la política de tratamiento de datos para continuar.</div>
+
+                                <button type="submit" class="btn-submit-hero" id="form-submit-btn">
+                                    <span>QUIERO MI ACCESO EXCLUSIVO</span>
+                                    <span aria-hidden="true">→</span>
+                                </button>
+
+                                <div class="dossier-microcopy">
+                                    ⚡ Te tomará menos de 60 segundos. Sin llamadas invasivas ni cobros automáticos.
+                                </div>
+                            </form>
+
+                            <!-- Contenedor para Incrustación HubSpot Opcional -->
+                            <div class="hs-form-frame" data-region="na1" data-form-id="8e299981-d8fb-454f-bc67-36579118f31e" data-portal-id="52169469" style="display:none;"></div>
                             
 
                             <!-- Estado de Éxito Posterior al Envío (Integración Demo) -->
@@ -258,7 +348,11 @@
                                 <span>[ MACRO ESPECIFICACIÓN ]</span>
                                 <span class="text-red">320 GSM</span>
                             </div>
-                            <img src="img/nova-hoodie-texture.jpg" alt="Macro Textura 320 GSM — Algodón Peinado y Etiqueta Oficial NOVA" loading="lazy">
+                            <picture>
+                                <source type="image/avif" srcset="img/nova-hoodie-texture-480w.avif 480w, img/nova-hoodie-texture-800w.avif 800w, img/nova-hoodie-texture-1200w.avif 1200w" sizes="(max-width: 991px) 90vw, 400px">
+                                <source type="image/webp" srcset="img/nova-hoodie-texture-480w.webp 480w, img/nova-hoodie-texture-800w.webp 800w, img/nova-hoodie-texture-1200w.webp 1200w" sizes="(max-width: 991px) 90vw, 400px">
+                                <img src="img/nova-hoodie-texture-800w.jpg" alt="Macro Textura 320 GSM — Algodón Peinado y Etiqueta Oficial NOVA" width="1200" height="896" loading="lazy" decoding="async">
+                            </picture>
                             <div class="plate-footer-caption">
                                 <span>TEJIDO PEINADO & COSTURA REFORZADA</span>
                                 <span class="text-red">FIG. 02</span>
@@ -307,7 +401,11 @@
                                 <div class="col-12 col-sm-4">
                                     <div class="brandbook-photo-plate" style="height: 105px;">
                                         <span class="plate-corner-cross tl">+</span>
-                                        <img src="img/nova-lifestyle-street.jpg" alt="Silueta urbana streetwear NOVA en calle brutalista" loading="lazy">
+                                        <picture>
+                                            <source type="image/avif" srcset="img/nova-lifestyle-street-480w.avif 480w, img/nova-lifestyle-street-800w.avif 800w" sizes="(max-width: 575px) 90vw, 250px">
+                                            <source type="image/webp" srcset="img/nova-lifestyle-street-480w.webp 480w, img/nova-lifestyle-street-800w.webp 800w" sizes="(max-width: 575px) 90vw, 250px">
+                                            <img src="img/nova-lifestyle-street-480w.jpg" alt="Silueta urbana streetwear NOVA en calle brutalista" width="896" height="1200" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-8">
@@ -409,7 +507,11 @@
                             <div class="row g-0 h-100 align-items-center">
                                 <div class="col-12 col-md-6 h-100">
                                     <div class="demo-img-frame h-100" style="min-height: 280px;">
-                                        <img src="img/nova-customer-demo.jpg" alt="Persona vistiendo buzo hoodie NOVA en estudio creativo" class="img-fluid h-100 w-100" loading="lazy">
+                                        <picture>
+                                            <source type="image/avif" srcset="img/nova-customer-demo-480w.avif 480w, img/nova-customer-demo-800w.avif 800w, img/nova-customer-demo-1024w.avif 1024w" sizes="(max-width: 768px) 90vw, 400px">
+                                            <source type="image/webp" srcset="img/nova-customer-demo-480w.webp 480w, img/nova-customer-demo-800w.webp 800w, img/nova-customer-demo-1024w.webp 1024w" sizes="(max-width: 768px) 90vw, 400px">
+                                            <img src="img/nova-customer-demo-480w.jpg" alt="Persona vistiendo buzo hoodie NOVA en estudio creativo" class="img-fluid h-100 w-100" width="1024" height="1024" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 p-4 p-lg-5 d-flex flex-column justify-content-between h-100">
@@ -436,7 +538,11 @@
                             <div class="row g-0 h-100 align-items-center">
                                 <div class="col-12 col-md-5 h-100">
                                     <div class="demo-img-frame h-100" style="min-height: 280px;">
-                                        <img src="img/nova-person-receiving.jpg" alt="Persona recibiendo el paquete y packaging rígido de NOVA" class="img-fluid h-100 w-100" loading="lazy">
+                                        <picture>
+                                            <source type="image/avif" srcset="img/nova-person-receiving-480w.avif 480w, img/nova-person-receiving-800w.avif 800w" sizes="(max-width: 768px) 90vw, 350px">
+                                            <source type="image/webp" srcset="img/nova-person-receiving-480w.webp 480w, img/nova-person-receiving-800w.webp 800w" sizes="(max-width: 768px) 90vw, 350px">
+                                            <img src="img/nova-person-receiving-480w.jpg" alt="Persona recibiendo el paquete y packaging rígido de NOVA" class="img-fluid h-100 w-100" width="896" height="1200" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-7 p-4 d-flex flex-column justify-content-between h-100">
@@ -467,7 +573,11 @@
                             <div class="row g-0 h-100 align-items-center">
                                 <div class="col-12 col-md-5 h-100">
                                     <div class="demo-img-frame h-100" style="min-height: 240px;">
-                                        <img src="img/nova-lifestyle-street.jpg" alt="Estilo urbano contemporáneo vistiendo hoodie negro NOVA" class="img-fluid h-100 w-100" loading="lazy">
+                                        <picture>
+                                            <source type="image/avif" srcset="img/nova-lifestyle-street-480w.avif 480w, img/nova-lifestyle-street-800w.avif 800w" sizes="(max-width: 768px) 90vw, 350px">
+                                            <source type="image/webp" srcset="img/nova-lifestyle-street-480w.webp 480w, img/nova-lifestyle-street-800w.webp 800w" sizes="(max-width: 768px) 90vw, 350px">
+                                            <img src="img/nova-lifestyle-street-480w.jpg" alt="Estilo urbano contemporáneo vistiendo hoodie negro NOVA" class="img-fluid h-100 w-100" width="896" height="1200" loading="lazy" decoding="async">
+                                        </picture>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-7 p-4 d-flex flex-column justify-content-between h-100">
@@ -602,7 +712,11 @@
                 <div class="row mt-4 pt-2 reveal-fade">
                     <div class="col-12">
                         <div class="unboxing-hero-banner">
-                            <img src="img/nova-unboxing-package.jpg" alt="Apertura del Packaging Rígido y Buzo Hoodie NOVA" class="img-fluid w-100" loading="lazy">
+                            <picture>
+                                <source type="image/avif" srcset="img/nova-unboxing-package-480w.avif 480w, img/nova-unboxing-package-800w.avif 800w, img/nova-unboxing-package-1200w.avif 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px">
+                                <source type="image/webp" srcset="img/nova-unboxing-package-480w.webp 480w, img/nova-unboxing-package-800w.webp 800w, img/nova-unboxing-package-1200w.webp 1200w" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px">
+                                <img src="img/nova-unboxing-package-800w.jpg" alt="Apertura del Packaging Rígido y Buzo Hoodie NOVA" class="img-fluid w-100" width="1200" height="896" loading="lazy" decoding="async">
+                            </picture>
                             <div class="unboxing-meta-strip">
                                 <div>
                                     <span class="text-red fw-bold">FIG. 04 // PROTOCOLO DE APERTURA:</span>
@@ -763,7 +877,11 @@
 
                                 <div class="col-12 col-lg-5">
                                     <div class="position-relative overflow-hidden" style="border: 1px solid var(--border-light); background: var(--nova-black);">
-                                        <img src="img/nova-hoodie-hero.jpg" alt="Buzo Hoodie NOVA — Edición Limitada 2026" class="img-fluid w-100" style="height: 160px; object-fit: cover; opacity: 0.8;" loading="lazy">
+                                        <picture>
+                                            <source type="image/avif" srcset="img/nova-hoodie-hero-480w.avif 480w, img/nova-hoodie-hero-800w.avif 800w" sizes="(max-width: 991px) 90vw, 450px">
+                                            <source type="image/webp" srcset="img/nova-hoodie-hero-480w.webp 480w, img/nova-hoodie-hero-800w.webp 800w" sizes="(max-width: 991px) 90vw, 450px">
+                                            <img src="img/nova-hoodie-hero-480w.jpg" alt="Buzo Hoodie NOVA — Edición Limitada 2026" class="img-fluid w-100" style="height: 160px; object-fit: cover; opacity: 0.8;" width="480" height="358" loading="lazy" decoding="async">
+                                        </picture>
                                         <div class="p-3 text-center" style="background: var(--nova-black-soft); border-top: 1px solid var(--border-light);">
                                             <a href="#hero-form" class="btn-prefooter-action w-100 justify-content-center" id="btnPrefooterAction">
                                                 <span>COMPLETAR REGISTRO AHORA</span>
@@ -817,7 +935,7 @@
                     </div>
                     <div class="footer-contact-item">
                         WHATSAPP OFICIAL:<br>
-                        <a href="https://wa.me/573000000000" target="_blank" rel="noopener">+57 (300) 000-NOVA</a>
+                        <a href="https://wa.me/573000000000" target="_blank" rel="noopener noreferrer">+57 (300) 000-NOVA</a>
                     </div>
                     <div class="footer-contact-item">
                         CORREO ELECTRÓNICO:<br>
@@ -847,7 +965,7 @@
                     <p class="nova-body mb-3" style="font-size: 0.85rem;">
                         Guarda nuestro contacto o escríbenos directamente por WhatsApp para mantenerte informado sobre los próximos lanzamientos.
                     </p>
-                    <a href="https://wa.me/573000000000" class="text-red fw-bold text-decoration-none nova-meta" target="_blank" rel="noopener">
+                    <a href="https://wa.me/573000000000" class="text-red fw-bold text-decoration-none nova-meta" target="_blank" rel="noopener noreferrer">
                         ESCRIBIR AL WHATSAPP →
                     </a>
                 </div>
@@ -879,11 +997,8 @@
     </button>
 
 
-    <!-- Bootstrap 5 Bundle con Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <!-- Script de Control Editorial y Conversión de NOVA -->
-    <script src="js/script.js"></script>
+    <!-- Script Optimizado NOVA (Diferido) -->
+    <script src="js/script.min.js" defer></script>
 
 </body>
 </html>
