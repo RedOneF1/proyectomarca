@@ -1,13 +1,13 @@
 // =====================================================
 // NOVA — BRANDBOOK EDITORIAL & LANDING DE ALTA CONVERSIÓN
 // Lógica de interactividad, validación accesible de formulario,
-// acordeón FAQ y navegación asimétrica
+// acordeón FAQ, navegación asimétrica y optimización Core Web Vitals
 // =====================================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
     // =====================================================
-    // 01. SCROLLSPY NUMÉRICO & BARRA DE AVANCE EDITORIAL
+    // 01. SCROLLSPY NUMÉRICO & BARRA DE AVANCE EDITORIAL (rAF)
     // =====================================================
     const progressBar = document.getElementById("read-progress");
     const mainNav = document.getElementById("mainNav");
@@ -15,14 +15,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const backToTopBtn = document.getElementById("backToTop");
     const chapters = document.querySelectorAll("section[data-chapter], footer[data-chapter]");
 
+    let isScrollTicking = false;
+    let cachedDocHeight = 0;
+    let cachedChapterList = [];
+
+    function recalculateMetrics() {
+        cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+        cachedChapterList = Array.from(chapters).map((chapter) => ({
+            top: chapter.offsetTop,
+            height: chapter.offsetHeight,
+            chapterAttr: chapter.getAttribute("data-chapter") || "01 / 08"
+        }));
+    }
+
+    recalculateMetrics();
+    window.addEventListener("resize", recalculateMetrics, { passive: true });
+
     function handleEditorialScroll() {
         const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        const scrollPercent = cachedDocHeight > 0 ? scrollTop / cachedDocHeight : 0;
 
-        // Barra de progreso de lectura superior
+        // Barra de progreso de lectura superior con transform: scaleX (acelerada por hardware)
         if (progressBar) {
-            progressBar.style.width = `${scrollPercent}%`;
+            progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, scrollPercent))})`;
         }
 
         // Mostrar / ocultar botón flotante volver arriba
@@ -47,21 +62,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const scanLine = scrollTop + 140;
         let currentChapter = "01 / 08";
 
-        chapters.forEach((chapter) => {
-            const top = chapter.offsetTop;
-            const height = chapter.offsetHeight;
-
-            if (scanLine >= top && scanLine < top + height) {
-                currentChapter = chapter.getAttribute("data-chapter") || currentChapter;
+        for (let i = 0; i < cachedChapterList.length; i++) {
+            const ch = cachedChapterList[i];
+            if (scanLine >= ch.top && scanLine < ch.top + ch.height) {
+                currentChapter = ch.chapterAttr;
+                break;
             }
-        });
+        }
 
         if (navCounter) {
             navCounter.textContent = currentChapter;
         }
+
+        isScrollTicking = false;
     }
 
-    window.addEventListener("scroll", handleEditorialScroll, { passive: true });
+    function requestScrollTick() {
+        if (!isScrollTicking) {
+            requestAnimationFrame(handleEditorialScroll);
+            isScrollTicking = true;
+        }
+    }
+
+    window.addEventListener("scroll", requestScrollTick, { passive: true });
     handleEditorialScroll(); // Ejecución inicial
 
     // Acción para volver arriba
@@ -76,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =====================================================
-    // 02. ANIMACIONES EDITORIALES AL SCROLL (REVEAL FADE)
+    // 02. ANIMACIONES EDITORIALES AL SCROLL (INTERSECTION OBSERVER)
     // =====================================================
     const revealTargets = document.querySelectorAll(".reveal-fade");
 
@@ -100,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
             revealObserver.observe(target);
         });
     } else {
-        // Fallback para navegadores antiguos
         revealTargets.forEach((target) => target.classList.add("active"));
     }
 
@@ -115,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleFaqItem(trigger);
         });
 
-        // Soporte de accesibilidad para teclado (Enter / Barra Espaciadora)
         trigger.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
@@ -131,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!contentEl) return;
 
-        // Opcional: Cerrar otros elementos para mantener lectura limpia
         faqTriggers.forEach((otherTrigger) => {
             if (otherTrigger !== activeTrigger) {
                 otherTrigger.setAttribute("aria-expanded", "false");
@@ -143,7 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Alternar el elemento seleccionado
         if (isExpanded) {
             activeTrigger.setAttribute("aria-expanded", "false");
             contentEl.style.maxHeight = null;
@@ -174,10 +193,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const errorConsent = document.getElementById("error-consent");
     const submitBtn = document.getElementById("form-submit-btn");
 
-    // Expresión regular para validación de correo estándar
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     function validateField(input, group, condition) {
+        if (!input || !group) return true;
         if (!condition) {
             group.classList.add("has-error");
             input.classList.add("is-invalid");
@@ -191,20 +210,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Limpieza de estados de error al escribir
-    if (inputNombre) {
+    if (inputNombre && groupNombre) {
         inputNombre.addEventListener("input", () => {
             validateField(inputNombre, groupNombre, inputNombre.value.trim().length >= 3);
         });
     }
 
-    if (inputEmail) {
+    if (inputEmail && groupEmail) {
         inputEmail.addEventListener("input", () => {
             validateField(inputEmail, groupEmail, emailRegex.test(inputEmail.value.trim()));
         });
     }
 
-    if (inputTelefono) {
+    if (inputTelefono && groupTelefono) {
         inputTelefono.addEventListener("input", () => {
             const cleanTel = inputTelefono.value.replace(/\D/g, "");
             validateField(inputTelefono, groupTelefono, cleanTel.length >= 7);
@@ -213,8 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (checkConsent) {
         checkConsent.addEventListener("change", () => {
-            if (checkConsent.checked) {
-                if (errorConsent) errorConsent.style.display = "none";
+            if (checkConsent.checked && errorConsent) {
+                errorConsent.style.display = "none";
             }
         });
     }
@@ -223,67 +241,54 @@ document.addEventListener("DOMContentLoaded", () => {
         heroForm.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            // Validar todos los campos antes de enviar
-            const isNameValid = validateField(inputNombre, groupNombre, inputNombre.value.trim().length >= 3);
-            const isEmailValid = validateField(inputEmail, groupEmail, emailRegex.test(inputEmail.value.trim()));
-            const cleanTel = inputTelefono.value.replace(/\D/g, "");
+            const isNameValid = validateField(inputNombre, groupNombre, inputNombre ? inputNombre.value.trim().length >= 3 : true);
+            const isEmailValid = validateField(inputEmail, groupEmail, inputEmail ? emailRegex.test(inputEmail.value.trim()) : true);
+            const cleanTel = inputTelefono ? inputTelefono.value.replace(/\D/g, "") : "";
             const isTelValid = validateField(inputTelefono, groupTelefono, cleanTel.length >= 7);
-            const isConsentValid = checkConsent.checked;
+            const isConsentValid = checkConsent ? checkConsent.checked : true;
 
-            if (!isConsentValid) {
-                if (errorConsent) errorConsent.style.display = "block";
-            } else {
-                if (errorConsent) errorConsent.style.display = "none";
+            if (errorConsent) {
+                errorConsent.style.display = isConsentValid ? "none" : "block";
             }
 
             if (!isNameValid || !isEmailValid || !isTelValid || !isConsentValid) {
-                // Enfocar el primer campo inválido
-                if (!isNameValid) inputNombre.focus();
-                else if (!isEmailValid) inputEmail.focus();
-                else if (!isTelValid) inputTelefono.focus();
+                if (!isNameValid && inputNombre) inputNombre.focus();
+                else if (!isEmailValid && inputEmail) inputEmail.focus();
+                else if (!isTelValid && inputTelefono) inputTelefono.focus();
                 return;
             }
 
-            // Simulación de envío con estado de carga accesible
-            const originalBtnHtml = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<span>PROCESANDO SOLICITUD...</span> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
+            if (submitBtn) {
+                const originalBtnHtml = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span>PROCESANDO SOLICITUD...</span>`;
 
-            setTimeout(() => {
-                // Transición al estado de éxito
-                heroForm.style.display = "none";
-                if (formSuccessState) {
-                    formSuccessState.classList.add("active");
-                }
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnHtml;
+                setTimeout(() => {
+                    heroForm.style.display = "none";
+                    if (formSuccessState) {
+                        formSuccessState.classList.add("active");
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
 
-                // Scroll suave hacia el contenedor para asegurar visibilidad en móviles
-                heroFormContainer.scrollIntoView({ behavior: "smooth", block: "center" });
-
-                // Logging de desarrollo para conexión de backend
-                console.info("[NOVA LEAD CAPTURED // DEMO STATE]", {
-                    nombre: inputNombre.value.trim(),
-                    email: inputEmail.value.trim(),
-                    telefono: inputTelefono.value.trim(),
-                    interes: document.getElementById("form-interes") ? document.getElementById("form-interes").value : "general",
-                    timestamp: new Date().toISOString()
-                });
-            }, 600);
+                    if (heroFormContainer) {
+                        heroFormContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }
+                }, 600);
+            }
         });
     }
 
-    // Botón para reiniciar formulario y enviar otra consulta
     if (btnResetForm) {
         btnResetForm.addEventListener("click", () => {
             if (heroForm) {
                 heroForm.reset();
                 heroForm.style.display = "block";
                 [inputNombre, inputEmail, inputTelefono].forEach((inp) => {
-                    inp.classList.remove("is-valid", "is-invalid");
+                    if (inp) inp.classList.remove("is-valid", "is-invalid");
                 });
                 [groupNombre, groupEmail, groupTelefono].forEach((grp) => {
-                    grp.classList.remove("has-error");
+                    if (grp) grp.classList.remove("has-error");
                 });
             }
             if (formSuccessState) {
@@ -311,14 +316,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         block: "center"
                     });
 
-                    // Resaltar visualmente el formulario con pulso de atención
                     heroFormContainer.classList.add("form-highlight");
                     setTimeout(() => {
                         heroFormContainer.classList.remove("form-highlight");
                     }, 1800);
 
-                    // Enfocar el primer input
-                    if (inputNombre && heroForm.style.display !== "none") {
+                    if (inputNombre && heroForm && heroForm.style.display !== "none") {
                         setTimeout(() => inputNombre.focus(), 600);
                     }
                 }
@@ -326,7 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Enlaces internos generales
     const internalLinks = document.querySelectorAll("a[href^='#']:not([href='#hero-form']):not([href='#hero'])");
     internalLinks.forEach((link) => {
         link.addEventListener("click", (e) => {
@@ -343,5 +345,73 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+
+    // =====================================================
+    // 06. CARGA DIFERIDA DE SCRIPTS DE TERCEROS (IDLE / INTERACCIÓN)
+    // =====================================================
+    let thirdPartyInitialized = false;
+
+    function initThirdParty() {
+        if (thirdPartyInitialized) return;
+        thirdPartyInitialized = true;
+
+        // Limpiar listeners de interacción temprana
+        ["scroll", "pointerdown", "touchstart", "keydown"].forEach((evt) => {
+            window.removeEventListener(evt, initThirdParty);
+        });
+
+        // 1. Google Analytics (gtag.js)
+        const gaScript = document.createElement("script");
+        gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-3VLNKX956T";
+        gaScript.async = true;
+        document.head.appendChild(gaScript);
+
+        // 2. Google Tag Manager
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KP2NL4DV');
+
+        // 3. Contentsquare (UX Feedback)
+        (function () {
+            var csa = document.createElement('script');
+            csa.type = 'text/javascript';
+            csa.async = true;
+            csa.src = 'https://t.contentsquare.net/uxa/38b5981933a8c.js';
+            document.head.appendChild(csa);
+        })();
+
+        // 4. HubSpot Form Embed
+        const hsScript = document.createElement("script");
+        hsScript.src = "https://js.hsforms.net/forms/embed/52169469.js";
+        hsScript.async = true;
+        document.body.appendChild(hsScript);
+    }
+
+    // Escuchar interacción del usuario para carga inmediata
+    ["scroll", "pointerdown", "touchstart", "keydown"].forEach((evt) => {
+        window.addEventListener(evt, initThirdParty, { once: true, passive: true });
+    });
+
+    // Fallback con requestIdleCallback / timeout
+    if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => {
+            setTimeout(initThirdParty, 3500);
+        }, { timeout: 5000 });
+    } else {
+        setTimeout(initThirdParty, 4000);
+    }
+
+
+    // =====================================================
+    // 07. REGISTRO DE SERVICE WORKER (CACHE-FIRST ESTÁTICO)
+    // =====================================================
+    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js").catch(() => {});
+        });
+    }
 
 });
