@@ -1,0 +1,28 @@
+{
+  "name": "proyecto-marca",
+  "version": "1.0.0",
+  "description": "",
+  "main": "seo_check.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedOneF1/PROYECTO-MARCA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RedOneF1/PROYECTO-MARCA/issues"
+  },
+  "homepage": "https://github.com/RedOneF1/PROYECTO-MARCA#readme",
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^9.1.0",
+    "@playwright/test": "^1.65.0",
+    "esbuild": "^0.28.2",
+    "postcss": "^8.5.32",
+    "purgecss": "^9.1.0"
+  }
+}
